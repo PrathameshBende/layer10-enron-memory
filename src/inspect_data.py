@@ -45,7 +45,9 @@ def parse_email(raw_email):
         "from": from_email,
         "to": to_emails,
         "subject": msg.get("Subject"),
-        "body": body
+        "body": body,
+        "in_reply_to": msg.get("In-Reply-To"),
+        "references": msg.get("References"),
     }
 
     if msg.get("Date"):
@@ -66,6 +68,31 @@ def compute_fingerprint(parsed_email):
     )
     return hashlib.sha256(content_string.encode()).hexdigest()
 
+def normalize_subject(subject):
+    if not subject:
+        return None
+
+    subject = subject.lower().strip()
+    prefixes = ["re:", "fw:", "fwd:"]
+    changed = True
+
+    while changed:
+        changed = False
+        for prefix in prefixes:
+            if subject.startswith(prefix):
+                subject = subject[len(prefix):].strip()
+                changed = True
+
+    return subject
+
+
+def compute_thread_id(subject, message_id):
+    subject_key = normalize_subject(subject)
+
+    if subject_key:
+        return hashlib.sha256(subject_key.encode()).hexdigest()
+    else:
+        return hashlib.sha256(message_id.encode()).hexdigest()
 
 def parse_batch(path, limit=1000):
     df = pd.read_csv(path, nrows=limit)
@@ -79,7 +106,11 @@ def parse_batch(path, limit=1000):
         raw_email = row["message"]
         try:
             parsed = parse_email(raw_email)
-
+            
+            parsed["thread_id"] = compute_thread_id(
+            parsed["subject"],
+            parsed["message_id"]
+        )
             msg_id = parsed["message_id"]
             fingerprint = compute_fingerprint(parsed)
 
