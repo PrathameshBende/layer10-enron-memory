@@ -35,7 +35,6 @@ class MemoryGraph:
         self.claims = {}  # claim_id -> claim object
         self.claim_actor_edges = defaultdict(list)  # actor -> claim_ids
         self.claim_target_edges = defaultdict(list)  # target -> claim_ids
-        self.claim_evidence = {}  # claim_id -> evidence object
 
     def add_message(self, message):
         msg_id = message["message_id"]
@@ -323,6 +322,8 @@ class MemoryGraph:
         if not claims:
             return "Insufficient grounded information."
         
+        claims = sorted(claims, key=lambda c: c["evidence"][-1]["timestamp"], reverse=True)
+
         #Context block
         context_blocks = []
 
@@ -343,6 +344,21 @@ class MemoryGraph:
 
         context_text = "\n---\n".join(context_blocks)
         
+        print("\nRetrieved Evidence:")
+
+        for i, claim in enumerate(claims, 1):
+            latest_evidence = max(
+                claim["evidence"],
+                key=lambda ev: ev["timestamp"]
+            )
+
+            print(f"""
+        {i}. {claim['content']}
+        Confidence: {round(claim['confidence'],2)}
+        Message: {latest_evidence['message_id']}
+        Date: {latest_evidence['timestamp']}
+        """)
+
         prompt = f"""
             You are answering a question using the provided memory context.
 
@@ -361,9 +377,6 @@ class MemoryGraph:
             {question}
         """
 
-        print("\nDEBUG CONTEXT SENT TO MODEL:\n")
-        print(context_text)
-
         response = ollama.chat(
             model="mistral:7b",
             messages=[{"role": "user", "content": prompt}]
@@ -375,26 +388,19 @@ def load_processed_emails(path):
     with open(path, "r", encoding="utf-8") as f:
         return json.load(f)
 
-
 if __name__ == "__main__":
     emails = load_processed_emails("data/processed_emails.json")
-
-    # limit for testing
     emails = emails[:600]
 
     from claim_extractor import extract_claims
-
     graph = MemoryGraph()
 
     start_time = time.time()
-    
-    signal_words =  [
-        # action verbs
-        "will", "would", "should", "need", "must",
-        "please", "call", "provide", "send", "request",
-        "plan", "propose", "develop", "prepare", "define",
 
-        # business nouns
+    signal_words = [
+        "need", "must", "please",
+        "call", "provide", "send", "request",
+        "plan", "propose", "develop", "prepare", "define",
         "project", "loan", "cost", "price", "market",
         "construction", "meeting", "deadline", "report",
         "budget", "proposal"
@@ -424,29 +430,13 @@ if __name__ == "__main__":
                 print("No claim extracted")
         else:
             print("Skipped (no signal)")
-        
-    end_time = time.time()
-    
-    print(f"\nProcessing Time: {round(end_time - start_time, 2)} seconds")
-    
-    top_claims = graph.retrieve_context(
-        actor="phillip.allen@enron.com",
-        min_confidence=0.5,
-        limit=5
-    )
 
-    context_packs = graph.build_context_pack(top_claims)
+    end_time = time.time()
+
+    print(f"\nProcessing Time: {round(end_time - start_time, 2)} seconds")
 
     with open("memory_graph.pkl", "wb") as f:
         pickle.dump(graph, f)
 
     print("Memory graph saved.")
-
-
-    answer = graph.answer_question(
-        question="What operational tasks did Phillip assign?",
-        actor="phillip.allen@enron.com"
-    )
-
-    print(answer)
     graph.summary()

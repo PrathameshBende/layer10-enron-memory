@@ -1,0 +1,75 @@
+[
+  {
+    "question": "What meetings did Phillip schedule or ask others to attend?",
+    "context_pack": [
+      {
+        "claim": "Please plan to attend the Var, Reporting and Resources Meeting on Wednesday, October 11th from 2:30 - 3:30 at EB30C1",
+        "confidence": 0.95,
+        "message_id": "<19773657.1075855687649.JavaMail.evans@thyme>"
+      },
+      {
+        "claim": "There will be a meeting on Tuesday, Oct. 10th at 4:00pm in EB3270 regarding Storage Strategies in the West.",
+        "confidence": 0.95,
+        "message_id": "<29177675.1075855687692.JavaMail.evans@thyme>"
+      },
+      {
+        "claim": "I have scheduled and entered on each of your calendars a meeting for the Gas Physical/Financial Position. It will take place on Thursday, 9/28 from 3:00 - 4:00 in Room EB2537.",
+        "confidence": 0.95,
+        "message_id": "<24741229.1075855687937.JavaMail.evans@thyme>"
+      }
+    ],
+    "answer": "Phillip scheduled or asked others to attend three meetings: the Var, Reporting and Resources Meeting (Message ID: <19773657.1075855687649.JavaMail.evans@thyme>), the Storage Strategies in the West meeting (Message ID: <29177675.1075855687692.JavaMail.evans@thyme>), and the Gas Physical/Financial Position meeting (Message ID: <24741229.1075855687937.JavaMail.evans@thyme>)."
+  },
+  {
+    "question": "What requests did Phillip make to other employees?",
+    "context_pack": [
+      {
+        "claim": "Please plan to attend the Var, Reporting and Resources Meeting on Wednesday, October 11th from 2:30 - 3:30 at EB30C1",
+        "confidence": 0.95,
+        "message_id": "<19773657.1075855687649.JavaMail.evans@thyme>"
+      },
+      {
+        "claim": "There will be a meeting on Tuesday, Oct. 10th at 4:00pm in EB3270 regarding Storage Strategies in the West.",
+        "confidence": 0.95,
+        "message_id": "<29177675.1075855687692.JavaMail.evans@thyme>"
+      },
+      {
+        "claim": "I have scheduled and entered on each of your calendars a meeting for the Gas Physical/Financial Position. It will take place on Thursday, 9/28 from 3:00 - 4:00 in Room EB2537.",
+        "confidence": 0.95,
+        "message_id": "<24741229.1075855687937.JavaMail.evans@thyme>"
+      },
+      {
+        "claim": "There will be a Friday Meeting August 18, 2000. This meeting replaces the every Friday Meeting and will be held every other Friday.",
+        "confidence": 0.95,
+        "message_id": "<13302421.1075855689330.JavaMail.evans@thyme>"
+      }
+    ],
+    "answer": "Phillip requested others to attend several meetings including the Var, Reporting and Resources Meeting (Message ID: <19773657.1075855687649.JavaMail.evans@thyme>), the Storage Strategies in the West meeting (Message ID: <29177675.1075855687692.JavaMail.evans@thyme>), the Gas Physical/Financial Position meeting (Message ID: <24741229.1075855687937.JavaMail.evans@thyme>), and the ENA Management Committee meeting (Message ID: <13302421.1075855689330.JavaMail.evans@thyme>)."
+  },
+  {
+    "question": "What operational topics did Phillip discuss?",
+    "context_pack": [
+      {
+        "claim": "Please plan to attend the Var, Reporting and Resources Meeting on Wednesday, October 11th from 2:30 - 3:30 at EB30C1",
+        "confidence": 0.95,
+        "message_id": "<19773657.1075855687649.JavaMail.evans@thyme>"
+      },
+      {
+        "claim": "There will be a meeting on Tuesday, Oct. 10th at 4:00pm in EB3270 regarding Storage Strategies in the West.",
+        "confidence": 0.95,
+        "message_id": "<29177675.1075855687692.JavaMail.evans@thyme>"
+      },
+      {
+        "claim": "Each participant is asked to provide feedback for another participant attending the next Executive Impact and Influence Program.",
+        "confidence": 0.95,
+        "message_id": "<16024444.1075855688508.JavaMail.evans@thyme>"
+      },
+      {
+        "claim": "There will be a Friday Meeting August 18, 2000 with the topic ENA Management Committee.",
+        "confidence": 0.95,
+        "message_id": "<13302421.1075855689330.JavaMail.evans@thyme>"
+      }
+    ],
+    "answer": "Phillip discussed operational topics including Var, Reporting and Resources (Message ID: <19773657.1075855687649.JavaMail.evans@thyme>), Storage Strategies in the West (Message ID: <29177675.1075855687692.JavaMail.evans@thyme>), the Executive Impact and Influence Program (Message ID: <16024444.1075855688508.JavaMail.evans@thyme>), and ENA Management Committee operations (Message ID: <13302421.1075855689330.JavaMail.evans@thyme>)."
+  }
+]

@@ -1,4 +1,42 @@
-data/
+# -------------------------
+# Python
+# -------------------------
 __pycache__/
 *.pyc
-.env
+*.pyo
+*.log
+
+# Virtual environments
+venv/
+.env/
+.venv/
+
+# -------------------------
+# Dataset (DO NOT UPLOAD)
+# -------------------------
+data/
+check/
+
+# Large/raw files
+*.csv
+*.zip
+
+# -------------------------
+# Dev junk
+# -------------------------
+tempCodeRunnerFile.py
+test.py
+verify_processed.py
+
+# -------------------------
+# Dependencies
+# -------------------------
+lib/
+
+# -------------------------
+# OS / IDE
+# -------------------------
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
